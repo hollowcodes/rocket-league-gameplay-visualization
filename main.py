@@ -1,13 +1,18 @@
 
-from utils import save_replay_json, load_json
+from utils import save_replay_json, load_json, save_replay_dataframe, load_dataframe
 from gameplay_stats import get_stats, plot_stats, plot_possession
 from heatmap import Heatmap
+from player_heatmap import PlayerHeatmap
 from time_line import Timeline
+import carball
+import requests
+import pandas as pd
 
 
-def main(replay: str):
-    """ load the carball game analysis json file """
-    analysis = load_json(replay)
+def main(json_replay: str="", data_frame_replay: str=""):
+    """ load the carball game analysis json file and data frame """
+    analysis = load_json(json_replay)
+    data_frame = load_dataframe(data_frame_replay)
 
     """ plot the game play stats """
     game_stats = get_stats(analysis)
@@ -24,10 +29,17 @@ def main(replay: str):
     heatmap = Heatmap(analysis)
     heatmap.create_map(down_scale=700)
 
+    """ player-coordinate heatmap """
+    playerHeatmap = PlayerHeatmap(data_frame, player="Hollowax")
+    playerHeatmap.create_map(down_scale=500)
+
+
 
 if __name__ == "__main__":
-    # save_replay_json("dataset/replays/replay_3/5297D2F811EA2F2AB12780A8F576FE2C.replay")
+    # save_replay_json("dataset/replays/replay_5/383CE56A11EA2BC4CDAD1994A3FECA7F.replay", "dataset/replays/replay_5/383CE56A11EA2BC4CDAD1994A3FECA7F.json")
+    # save_replay_dataframe("dataset/replays/replay_5/383CE56A11EA2BC4CDAD1994A3FECA7F.replay", "dataset/replays/replay_5/383CE56A11EA2BC4CDAD1994A3FECA7F.csv")
     
-    main("dataset/replays/replay_5/383CE56A11EA2BC4CDAD1994A3FECA7F.json")
+    main(json_replay="dataset/replays/replay_5/383CE56A11EA2BC4CDAD1994A3FECA7F.json",
+         data_frame_replay="dataset/replays/replay_5/383CE56A11EA2BC4CDAD1994A3FECA7F.csv")
 
 
