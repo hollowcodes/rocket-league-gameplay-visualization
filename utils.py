@@ -26,9 +26,15 @@ def load_dataframe(file: str):
 
 # get players name and team by id
 def get_player_by_id(analysis: dict, id_: int) -> str:
+    if id_ == "ball":
+        return "ball", "ball"
+
     stats = get_stats(analysis)
     return stats[id_].get("name"), stats[id_].get("team")
 
 # calculate the time through the frames
 def get_time_by_frames(total_frames: int, total_time: float, frames: int) -> float:
     return total_time / (total_frames / frames)
+
+def get_team_by_name(analysis: dict, player_name: str):
+    stats = get_stats(analysis)

@@ -27,12 +27,12 @@ def get_stats(analysis: dict) -> dict:
 
 # plots player stats
 def plot_stats(stats: dict):
-    names = [a if (a := stats[player].get("name")) is not None else 0 for player in stats]
-    scores = [a if (a := stats[player].get("score")) is not None else 0 for player in stats]
-    goals = [a if (a := stats[player].get("goals")) is not None else 0 for player in stats]
-    assists = [a if (a := stats[player].get("assists")) is not None else 0 for player in stats]
-    saves = [a if (a := stats[player].get("saves")) is not None else 0 for player in stats]
-    shots = [a if (a := stats[player].get("shots")) is not None else 0 for player in stats]
+    names = [stats[player].get("name") if stats[player].get("name") is not None else 0 for player in stats]                                              # in Python 3.8: (a := stats[player].get("name"))
+    scores = [stats[player].get("score") if stats[player].get("score") is not None else 0 for player in stats]
+    goals = [stats[player].get("goals") if stats[player].get("goals") is not None else 0 for player in stats]
+    assists = [stats[player].get("assists") if stats[player].get("assists") is not None else 0 for player in stats]
+    saves = [stats[player].get("saves") if stats[player].get("saves") is not None else 0 for player in stats]
+    shots = [stats[player].get("shots") if stats[player].get("shots") is not None else 0 for player in stats]
 
     # get indices of blue players and create the color sequence of the bar chart
     blue_team_indices = [i for i, player in enumerate(stats) if stats[player].get("team") == "blue"]

@@ -1,8 +1,8 @@
 
 from utils import save_replay_json, load_json, save_replay_dataframe, load_dataframe
 from gameplay_stats import get_stats, plot_stats, plot_possession
-from heatmap import Heatmap
-from player_heatmap import Heatmap
+from ball_hit_heatmap import BallHitHeatmap
+from player_heatmap import PositionHeatmap
 from time_line import Timeline
 import carball
 import requests
@@ -16,21 +16,21 @@ def main(json_replay: str="", data_frame_replay: str=""):
 
     """ plot the game play stats """
     game_stats = get_stats(analysis)
-    #plot_stats(game_stats)
+    plot_stats(game_stats)
     
     """ plot the game play history """
     timeline = Timeline(analysis)
-    #timeline.plot(show=["goals", "demos"])
+    timeline.plot(show=["goals", "demos"])
 
     """ plot possession """
-    #plot_possession(analysis)
+    plot_possession(analysis)
 
     """ ball-hit heatmap """
-    heatmap = Heatmap(analysis)
-    #heatmap.create_map(down_scale=700)
+    heatmap = BallHitHeatmap(analysis)
+    heatmap.create_map(down_scale=700)
 
     """ player/ball-coordinate heatmap and live tracemap (player="ball" possible) """
-    playerHeatmap = Heatmap(data_frame, player="ball")
+    playerHeatmap = PositionHeatmap(data_frame, analysis)
     playerHeatmap.create_heatmap(down_scale=500)
     playerHeatmap.animate_tracemap(down_scale=200)
 
