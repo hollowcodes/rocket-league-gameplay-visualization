@@ -3,6 +3,7 @@ from utils import save_replay_json, load_json, save_replay_dataframe, load_dataf
 from gameplay_stats import get_stats, plot_stats, plot_possession
 from ball_hit_heatmap import BallHitHeatmap
 from player_heatmap import PositionHeatmap
+from replay_visualizer import ShowReplay
 from time_line import Timeline
 import carball
 import requests
@@ -32,7 +33,10 @@ def main(json_replay: str="", data_frame_replay: str=""):
     """ player/ball-coordinate heatmap and live tracemap (player="ball" possible) """
     playerHeatmap = PositionHeatmap(data_frame, analysis)
     playerHeatmap.create_heatmap(down_scale=500)
-    playerHeatmap.animate_tracemap(down_scale=200)
+    playerHeatmap.animate_tracemap(down_scale=150)
+
+    showReplay = ShowReplay(data_frame, analysis)
+    showReplay.animate()
 
 
 
